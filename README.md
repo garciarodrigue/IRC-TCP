@@ -10,5 +10,5 @@ Chat servidor TCP personal y secreto establece un host y port para un chat
 ##### python Cliente.py
 <p>aqui se usa el host y el puerto establecido en el server</p>
 <h5>
-<img src="Screenshot_20220807-022451_Termux.jpg">
+<img src="Screenshot_20220807-022451_Termux.jpg" width="200">
 </h5>
