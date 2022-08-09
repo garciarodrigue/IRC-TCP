@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
+import os
 import socket
 import threading
 from colorama import Fore, Back, Style, init
@@ -14,14 +14,16 @@ cyan = Fore.CYAN
 azul = Fore.BLUE
 magenta = Fore.MAGENTA
 
-host = input("[+] ip server: ")
-port = int(input("[+] Puerto: "))
+os.system("clear")
+
+host = input(f"{amarillo}[+] ip server:{rojo} ")
+port = int(input(f"{amarillo}[+] Puerto:{rojo} "))
 
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 server.bind((host, port))
 server.listen()
-print(stylo + azul + f"Server Corriendo en {host}:{port}")
+print(stylo + azul + f"Server Corriendo en {verde}{host}{rojo} : {verde}{port} ")
 
 
 clients = []
@@ -40,7 +42,7 @@ def handle_messages(client):
         except:
             index = clients.index(client)
             username = usernames[index]
-            broadcast(magenta + f"ServerBot: {username} Desconectado".encode('utf-8'))
+            broadcast(f"{verde}ServerBot: {cyan}{username} {rojo}Desconectado".encode('utf-8'))
             clients.remove(client)
             usernames.remove(username)
             client.close()
@@ -56,11 +58,11 @@ def receive_connections():
         clients.append(client)
         usernames.append(username)
     
-        print(azul + f"\n{username} Conectado a {str(address)}")
+        print(azul + f"\n{verde}{username} {rojo}Conectado a {amarillo}{str(address)}")
 
-        message = f"\nServerBot: {username} Se Conecto Al Chat!\n".encode('utf-8')
+        message = f"\n{verde}ServerBot: {azul}{username} {verde}Se Conecto Al Chat!{Fore.MAGENTA}\n".encode('utf-8')
         broadcast(message, client)
-        client.send("\nTe has conectado al Server\n".encode('utf-8'))
+        client.send(f"\n{cyan}Te has conectado al Server{Fore.MAGENTA}\n".encode('utf-8'))
         
         thread = threading.Thread(target=handle_messages, args=(client,))
         thread.start()

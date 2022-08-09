@@ -11,13 +11,13 @@ verde = Fore.GREEN
 azul = Fore.BLUE
 rojo = Fore.RED
 cyan = Fore.CYAN
-
+magenta = Fore.MAGENTA
 os.system("clear")
 
-username = input(style + verde +"\nIngresa tu NickName: "+ azul)
+username = input(rojo +"\nIngresa tu NickName: "+ azul)
 
-host = input("[+] ip del server: ")
-port = int(input("[+] Puerto del server: "))
+host = input(f"{cyan}[+] ip del server:{rojo} ")
+port = int(input(f"{cyan}[+] Puerto del server:{rojo} "))
 
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client.connect((host, port))
@@ -31,17 +31,17 @@ def receive_messages():
             if message == "@NickName":
                 client.send(username.encode('utf-8'))
             else:
-                print(message)
-        except:
+                print(style + message + "\n")
+
+        except KeyboardInterrupt:
             print(style + rojo +"\nOcurrio un Error")
-            client.close
+            client.close()
             break
 
 def write_messages():
     while True:
-        message = style + cyan + f"{username}: {input('')}"+ rojo
+        message = style + cyan + f"\n{azul}{username}: {cyan}{input('')}{magenta}"
         client.send(message.encode('utf-8'))
-
 receive_thread = threading.Thread(target=receive_messages)
 receive_thread.start()
 
